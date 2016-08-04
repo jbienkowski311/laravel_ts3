@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - laravel_ts3@localhost" uuid="52eee164-5424-4f16-b2e7-97593e3ebc30">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <introspection-scope>laravel_ts3:</introspection-scope>
+      <resolve-scope>laravel_ts3:</resolve-scope>
+    </data-source>
+  </component>
+</project>
