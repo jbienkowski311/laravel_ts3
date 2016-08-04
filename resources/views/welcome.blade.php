@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>[TS3] {{ $data['server_name']->toString() }} | Server Website</title>
 
         <!-- Fonts -->
         <link href='https://fonts.googleapis.com/css?family=Raleway:100,400,300,600' rel='stylesheet' type='text/css'>
@@ -63,6 +63,18 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .online {
+                font-size: 12px;
+                color: green;
+                text-transform: uppercase;
+            }
+
+            .offline {
+                font-size: 12px;
+                color: red;
+                text-transform: uppercase;
+            }
         </style>
     </head>
     <body>
@@ -76,15 +88,17 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    {{ $data['server_name']->toString() }}
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="m-b-md">
+                    @if($data['online'])
+                        <p>Status: <strong class="online">Online</strong></p>
+                    @else
+                        <p>Status: <strong class="offline">Offline</strong></p>
+                    @endif
+                    <p>Users: <strong>{{ $data['users_online'] }}/{{ $data['users_max'] }}</strong></p>
+                    <p>Uptime: <strong>{{ $data['uptime'] }}</strong></p>
                 </div>
             </div>
         </div>
