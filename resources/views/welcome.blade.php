@@ -19,7 +19,7 @@
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
-                padding: 10px;
+                padding: 0 10px;
             }
 
             .full-height {
@@ -39,7 +39,20 @@
             .top-right {
                 position: absolute;
                 right: 0;
-                top: 0;
+                top: 25px;
+            }
+            @media screen and (max-width: 600px) {
+                .top-right {
+                    position: absolute;
+                    right: 0;
+                    top: 50px;
+                }
+            }
+
+            .top-left {
+                position: absolute;
+                left: 0;
+                top: 25px;
             }
 
             .content {
@@ -47,7 +60,8 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 72px;
+                font-weight: 300;
             }
 
             .links > a {
@@ -79,6 +93,13 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
+            @if (Auth::user())
+                <div class="top-left links">
+                    <a href="{{ url('/') }}">Home</a>
+                    <a href="{{ url('/dashboard') }}">Dashboard</a>
+                    <a href="{{ url('/stats') }}">Stats</a>
+                </div>
+            @endif
             @if (Route::has('login'))
                 <div class="top-right links">
                     <a href="{{ url('/login') }}">Login</a>
@@ -92,11 +113,13 @@
                 </div>
 
                 <div class="m-b-md">
+                    <p>Status:&nbsp;
                     @if($data['online'])
-                        <p>Status: <strong class="online">Online</strong></p>
+                        <strong class="online">Online</strong>
                     @else
-                        <p>Status: <strong class="offline">Offline</strong></p>
+                        <strong class="offline">Offline</strong></p>
                     @endif
+                    </p>
                     <p>Users: <strong>{{ $data['users_online'] }}/{{ $data['users_max'] }}</strong></p>
                     <p>Uptime: <strong>{{ $data['uptime'] }}</strong></p>
                 </div>

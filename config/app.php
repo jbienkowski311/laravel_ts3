@@ -176,6 +176,8 @@ return [
          * Custom Service Providers...
          */
         Zizaco\Entrust\EntrustServiceProvider::class,
+        Spatie\Fractal\FractalServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -226,6 +228,8 @@ return [
          * Custom aliases
          */
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Fractal' => Spatie\Fractal\FractalFacade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
