@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>[TS3] {{ $data['server_name']->toString() }} | Server Website</title>
+        <title>{{ $ts3Info['name'] }} | Server Website</title>
 
         <!-- Fonts -->
         <link href='https://fonts.googleapis.com/css?family=Raleway:100,400,300,600' rel='stylesheet' type='text/css'>
@@ -93,13 +93,13 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
+            <div class="top-left links">
             @if (Auth::user())
-                <div class="top-left links">
                     <a href="{{ url('/') }}">Home</a>
                     <a href="{{ url('/dashboard') }}">Dashboard</a>
-                    <a href="{{ url('/stats') }}">Stats</a>
-                </div>
             @endif
+                <a href="{{ url('/stats') }}">Stats</a>
+            </div>
             @if (Route::has('login'))
                 <div class="top-right links">
                     <a href="{{ url('/login') }}">Login</a>
@@ -109,19 +109,14 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    {{ $data['server_name']->toString() }}
+                    {{ $ts3Info['name'] }}
                 </div>
 
                 <div class="m-b-md">
-                    <p>Status:&nbsp;
-                    @if($data['online'])
-                        <strong class="online">Online</strong>
-                    @else
-                        <strong class="offline">Offline</strong></p>
-                    @endif
-                    </p>
-                    <p>Users: <strong>{{ $data['users_online'] }}/{{ $data['users_max'] }}</strong></p>
-                    <p>Uptime: <strong>{{ $data['uptime'] }}</strong></p>
+                    <p>Status:&nbsp;<strong class="{{ $ts3Info['status'] }}">{{ ucfirst($ts3Info['status']) }}</strong></p>
+                    <p>Users: <strong>{{ $ts3Info['clients_online'] }}/{{ $ts3Info['clients_max'] }}</strong></p>
+                    <p>Channels: <strong>{{ $ts3Info['channels_created'] }}</strong></p>
+                    <p>Uptime: <strong>{{ $ts3Info['uptime_human'] }}</strong></p>
                 </div>
             </div>
         </div>

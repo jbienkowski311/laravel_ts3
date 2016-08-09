@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use App\Transformers\Ts3DefaultTransformer;
 
 class HomeController extends Controller
 {
+    /** @var \TeamSpeak3_Node_Server  */
     private $ts3;
+
     /**
      * Create a new controller instance.
      *
@@ -28,27 +29,12 @@ class HomeController extends Controller
      */
 
     public function index(){
-
-        $ts3_info = $this->ts3->getInfo();
-        $diff = Carbon::now()->diff(Carbon::createFromTimestampUTC(time() - $ts3_info['virtualserver_uptime']));
-        $uptime = '';
-        if ($diff->y > 0) {
-            $uptime .= "{$diff->y} years ";
-        }
-        if ($diff->m > 0) {
-            $uptime .= "{$diff->m} months ";
-        }
-        $uptime .= "{$diff->h} hours {$diff->i} minutes {$diff->s} seconds";
-
-        $data = [
-            'server_name' => $ts3_info['virtualserver_name'],
-            'online' => $this->ts3->isOnline(),
-            'users_online' => $ts3_info['virtualserver_clientsonline'] - $ts3_info['virtualserver_queryclientsonline'],
-            'users_max' => $ts3_info['virtualserver_maxclients'],
-            'uptime' => $uptime
-        ];
-
-        return view('welcome', ['data' => $data]);
+        return view('welcome', [
+            'ts3Info' => fractal()
+                        ->item($this->ts3)
+                        ->transformWith(new Ts3DefaultTransformer)
+                        ->toArray()
+        ]);
     }
 
     public function dashboard()
